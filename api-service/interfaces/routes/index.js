@@ -3,6 +3,6 @@ import { makeUserController } from '../controllers/factories/userControllerFacto
 
 const router = express.Router();
 
-router.post('/register', (req, res) => makeUserController().create(req, res));
+router.post('/register', (req, res, next) => makeUserController().create(req, res, next));
 
 export default router;
