@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
+    "crypto": "^1.0.1",
     "express": "^4.19.2",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1"
