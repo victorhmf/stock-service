@@ -4,7 +4,7 @@ import db from "../index.js"
 class PrismaUserRepository extends UserRepository {
   async create(user) {
 
-    const {email, password, role, createdAt, updatedAt} = user
+    const { email, password, role, createdAt, updatedAt } = user
 
     const result = await db.user.create({
       data: {
@@ -17,6 +17,16 @@ class PrismaUserRepository extends UserRepository {
     })
 
     return result
+  }
+
+  async findByEmail(email) {
+    const user = await db.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    return user
   }
 }
 
