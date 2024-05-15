@@ -1,8 +1,8 @@
-const createError = require('http-errors');
-const express = require('express');
-const logger = require('morgan');
+import createError from 'http-errors'
+import express from 'express'
+import logger from 'morgan'
 
-const indexRouter = require('./routes/index');
+import indexRouter from './routes/index.js'
 
 const app = express();
 
@@ -28,4 +28,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;
