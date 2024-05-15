@@ -2,7 +2,7 @@ import createError from 'http-errors'
 import express from 'express'
 import logger from 'morgan'
 
-import indexRouter from './routes/index.js'
+import indexRouter from '../../interfaces/routes/index.js'
 
 const app = express();
 
