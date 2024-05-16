@@ -14,7 +14,7 @@ class LoginUser {
       id: user.id,
       email: user.email,
       role: user.role,
-    }, process.env.SECRET_KEY);
+    }, process.env.SECRET_KEY, { expiresIn: '10m' });
     
     return accessToken
   }
