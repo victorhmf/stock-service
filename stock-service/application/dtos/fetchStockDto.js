@@ -4,10 +4,10 @@ class FetchStockDTO {
   }) {
     this.name = Name
     this.symbol = Symbol
-    this.open = Open
-    this.high = High
-    this.low = Low
-    this.close = Close
+    this.open = Number(Open)
+    this.high = Number(High)
+    this.low = Number(Low)
+    this.close = Number(Close)
   }
 }
 

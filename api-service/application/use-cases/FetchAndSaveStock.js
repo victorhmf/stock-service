@@ -1,13 +1,12 @@
-// src/application/use-cases/FetchAndSaveStock.js
 class FetchAndSaveStock {
-  constructor({stockApiService, createStockUseCase}) {
+  constructor({ stockApiService, createStockUseCase }) {
     this.stockApiService = stockApiService;
     this.createStockUseCase = createStockUseCase;
   }
 
-  async execute({userId, stockCode}) {
-    console.log(this.stockApiService)
+  async execute({ userId, stockCode }) {
     const stockData = await this.stockApiService.fetchData(stockCode);
+    if (!this.#responseIsValid(stockData)) return stockData
 
     const { name,
       symbol,
@@ -29,6 +28,10 @@ class FetchAndSaveStock {
     });
 
     return stockData;
+  }
+
+  #responseIsValid(response){
+    return Object.keys(response).length
   }
 }
 
