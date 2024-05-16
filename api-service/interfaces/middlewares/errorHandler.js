@@ -1,6 +1,6 @@
 import { EmailNotUniqueError } from "../../application/errors/EmailNotUniqueError.js";
 
-export default (error, req, res, next) => {
+export default (error, req, res) => {
   console.error(error)
   
   const knownErrors = [
