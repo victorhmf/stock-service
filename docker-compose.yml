@@ -27,7 +27,7 @@ services:
     ports:
       - "3002:3002"
     env_file:
-      - ./stock-service/.env.local
+      - ./stock-service/.env
     command: sh -c "npm i && sleep 5 && npm run start"
 
   database:
