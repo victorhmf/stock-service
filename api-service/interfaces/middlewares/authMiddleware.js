@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-
+import logger from '../logger/index.js'
 class AuthMiddleware {
   async authenticate(req, res, next) {
     try {
@@ -12,7 +12,8 @@ class AuthMiddleware {
 
       return next()
     } catch (error) {
-      console.error(error)
+      logger.error(error)
+      
       return res.status(401).json({ message: 'Unauthorized' });
     }
   }
@@ -20,7 +21,7 @@ class AuthMiddleware {
   async authorize(req, res, next) {
     const { role } = req.user
     
-    if (role !== 'admin') return res.status(403).json({ message: 'Unauthorized' });
+    if (role !== 'admin') return res.status(403).json({ message: 'Forbidden' });
 
     return next()
   }

@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 
+import logger from '../../interfaces/logger/index.js';
 import app from './app.js'
 import http from 'http'
 
@@ -64,11 +65,11 @@ function onError(error) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
+      logger.error(bind + ' requires elevated privileges');
       process.exit(1);
     // eslint-disable-next-line no-fallthrough
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
+      logger.error(bind + ' is already in use');
       process.exit(1);
     // eslint-disable-next-line no-fallthrough
     default:
@@ -86,5 +87,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 
-  console.info('Listening on ' + bind)
+  logger.info('Listening on ' + bind)
 }

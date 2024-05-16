@@ -12,12 +12,14 @@
     "csvtojson": "^2.0.10",
     "express": "^4.19.2",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "pino": "^9.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.2.0",
     "eslint": "^9.2.0",
     "globals": "^15.2.0",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "pino-pretty": "^11.0.0"
   }
 }
