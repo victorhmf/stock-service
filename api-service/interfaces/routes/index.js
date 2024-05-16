@@ -11,7 +11,12 @@ router.post('/register', (req, res, next) => makeUserController().create(req, re
 
 router.use(AuthMiddleware.authenticate);
 
-router.get('/stock', (req, res, next) => makeStockController().getStock(req, res, next))
-router.get('/history', (req, res, next) => makeStockController().getStockHistory(req, res, next))
+const stockController = makeStockController()
+
+router.get('/stock', (req, res, next) => stockController.getStock(req, res, next))
+router.get('/history', (req, res, next) => stockController.getStockHistory(req, res, next))
+
+router.use(AuthMiddleware.authorize);
+router.get('/stats', (req, res, next) => stockController.getStockStats(req, res, next))
 
 export default router;

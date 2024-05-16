@@ -43,6 +43,28 @@ class PrismaStockRepository extends StockRepository {
 
     return stocks
   }
+
+  async countRequestsBySymbol() {
+    const result = await db.stock.groupBy({
+      by: ['symbol'],
+      _count: {
+        symbol: true
+      },
+      orderBy: {
+        _count: {
+          symbol: 'desc'
+        }
+      },
+      take: 5
+    });
+
+    const formattedResult = result.map(item => ({
+      stock: item.symbol,
+      times_requested: item._count.symbol
+    }));
+
+    return formattedResult;
+  }
 }
 
 export default PrismaStockRepository;

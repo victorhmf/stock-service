@@ -4,6 +4,7 @@ import StockApiService from "../../../infrastructure/external-services/stockApi.
 import StockController from "../stockController.js";
 import FetchAndSaveStock from "../../../application/use-cases/FetchAndSaveStock.js";
 import GetStockHistory from "../../../application/use-cases/getStockHistory.js";
+import GetStockStats from "../../../application/use-cases/getStockStats.js";
 
 export const makeStockController = () => {
   const stockRepository = new PrismaStockRepository();
@@ -12,6 +13,7 @@ export const makeStockController = () => {
   const fetchAndSaveStockUseCase = new FetchAndSaveStock({ stockApiService, createStockUseCase })
 
   const getStockHistoryUseCase = new GetStockHistory(stockRepository)
+  const getStockStatsUseCase = new GetStockStats(stockRepository)
 
-  return new StockController({ fetchAndSaveStockUseCase, getStockHistoryUseCase });
+  return new StockController({ fetchAndSaveStockUseCase, getStockHistoryUseCase, getStockStatsUseCase });
 }

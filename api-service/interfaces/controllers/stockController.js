@@ -1,7 +1,8 @@
 class StockController {
-  constructor({ fetchAndSaveStockUseCase, getStockHistoryUseCase }) {
+  constructor({ fetchAndSaveStockUseCase, getStockHistoryUseCase, getStockStatsUseCase }) {
     this.fetchAndSaveStockUseCase = fetchAndSaveStockUseCase
     this.getStockHistoryUseCase = getStockHistoryUseCase
+    this.getStockStatsUseCase = getStockStatsUseCase
   }
 
   async getStock(req, res, next) {
@@ -23,6 +24,16 @@ class StockController {
 
       return res.json(result);
 
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getStockStats(req, res, next) {
+    try {
+      const result = await this.getStockStatsUseCase.execute()
+
+      return res.json(result);
     } catch (error) {
       next(error)
     }
