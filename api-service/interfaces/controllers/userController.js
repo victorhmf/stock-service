@@ -8,7 +8,7 @@ class UserController {
       const { email, role } = req.body
       const user = await this.createUserUseCase.execute({email, role});
       
-      res.json(user);
+      return res.json(user);
     } catch (error) {
       next(error)
     }

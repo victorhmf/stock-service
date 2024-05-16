@@ -10,7 +10,7 @@ class LoginController {
       const { email, password } = req.body
       const accessToken = await this.loginUserUseCase.execute({ email, password });
 
-      res.json({ accessToken });
+      return res.json({ accessToken });
     } catch (error) {
       if (error instanceof InvalidCredentialsError) {
         return res.status(401).json({ message: 'Invalid credentials.' });

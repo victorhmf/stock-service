@@ -2,6 +2,7 @@ import express from 'express';
 import { makeUserController } from '../controllers/factories/userControllerFactory.js';
 import { makeLoginController } from '../controllers/factories/loginControllerFactory.js';
 import AuthMiddleware from '../middlewares/authMiddleware.js';
+import { makeStockController } from '../controllers/factories/stockControllerFactory.js';
 
 const router = express.Router();
 
@@ -10,9 +11,6 @@ router.post('/register', (req, res, next) => makeUserController().create(req, re
 
 router.use(AuthMiddleware.authenticate);
 
-// router.get('/test', (req, res, next) => {
-//   console.log(req.user)
-//   res.status(200).json({})
-// })
+router.get('/stock', (req, res, next) => makeStockController().getStock(req, res, next))
 
 export default router;
