@@ -1,18 +1,18 @@
 import User from "../../domain/entities/user.js";
 import createUserDTO from "../dtos/createUserDto.js";
-import PasswordGeneratorService from "../services/PasswordGenerator.js";
 import EmailValidator from "../validators/EmailValidator.js";
 
 class CreateUser {
-  constructor(userRepository) {
+  constructor({userRepository, passwordGeneratorService}) {
     this.userRepository = userRepository;
+    this.passwordGeneratorService = passwordGeneratorService
   }
 
   async execute({ email, role }) {
     const emailValidator = new EmailValidator(this.userRepository)
     await emailValidator.validate(email)
 
-    const password = PasswordGeneratorService.generate()
+    const password = this.passwordGeneratorService.generate()
 
     const user = new User({
       email,
