@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-import app from '../app.js'
+import app from './app.js'
 import http from 'http'
 
 /**
@@ -66,9 +66,11 @@ function onError(error) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
       process.exit(1);
+    // eslint-disable-next-line no-fallthrough
     case 'EADDRINUSE':
       console.error(bind + ' is already in use');
       process.exit(1);
+    // eslint-disable-next-line no-fallthrough
     default:
       throw error;
   }
@@ -84,5 +86,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
 
-  console.info('Listening on ' + bind);
+  console.info('Listening on ' + bind)
 }
