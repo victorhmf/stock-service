@@ -12,5 +12,6 @@ router.post('/register', (req, res, next) => makeUserController().create(req, re
 router.use(AuthMiddleware.authenticate);
 
 router.get('/stock', (req, res, next) => makeStockController().getStock(req, res, next))
+router.get('/history', (req, res, next) => makeStockController().getStockHistory(req, res, next))
 
 export default router;

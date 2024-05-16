@@ -32,6 +32,17 @@ class PrismaStockRepository extends StockRepository {
 
     return result
   }
+
+  async findMany({userId, orderBy}) {
+    const stocks = db.stock.findMany({
+      where: {
+        userId,
+      },
+      orderBy
+    });
+
+    return stocks
+  }
 }
 
 export default PrismaStockRepository;
