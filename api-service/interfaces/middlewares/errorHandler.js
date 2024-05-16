@@ -1,6 +1,7 @@
 import { EmailNotUniqueError } from "../../application/errors/EmailNotUniqueError.js";
 
-export default (error, req, res) => {
+// eslint-disable-next-line no-unused-vars
+export default (error, req, res, next) => {
   console.error(error)
   
   const knownErrors = [

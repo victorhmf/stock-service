@@ -1,4 +1,5 @@
 import User from "../../domain/entities/user.js";
+import createUserDTO from "../dtos/createUserDto.js";
 import PasswordGeneratorService from "../services/PasswordGenerator.js";
 import EmailValidator from "../validators/EmailValidator.js";
 
@@ -19,7 +20,10 @@ class CreateUser {
       role
     })
 
-    return await this.userRepository.create(user);
+    await this.userRepository.create(user);
+    const parsedUser = new createUserDTO(user)
+
+    return parsedUser
   }
 }
 export default CreateUser;
