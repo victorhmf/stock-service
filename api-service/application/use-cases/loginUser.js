@@ -8,7 +8,7 @@ class LoginUser {
 
   async execute({ email, password }) {
     const user = await this.userRepository.findByEmail(email)
-    if (password !== user.password) throw new InvalidCredentialsError()
+    if (password !== user?.password) throw new InvalidCredentialsError()
 
     const token = this.tokenGeneratorService.generate({
       id: user.id,
