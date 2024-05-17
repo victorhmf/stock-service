@@ -41,10 +41,6 @@ class User {
   }
 
   // Setters
-  set id(value) {
-    this.#id = value;
-    this.#updateTimestamp();
-  }
 
   set email(value) {
     this.#email = value;

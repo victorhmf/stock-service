@@ -65,11 +65,6 @@ class Stock {
   }
 
   // Setters
-  set id(value) {
-    this.#id = value;
-    this.#updateTimestamp();
-  }
-
   set name(value) {
     this.#name = value;
     this.#updateTimestamp();
@@ -97,11 +92,6 @@ class Stock {
 
   set close(value) {
     this.#close = value;
-    this.#updateTimestamp();
-  }
-
-  set userId(value) {
-    this.#userId = value;
     this.#updateTimestamp();
   }
 
