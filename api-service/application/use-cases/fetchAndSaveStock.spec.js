@@ -1,4 +1,4 @@
-import FetchAndSaveStock from './FetchAndSaveStock';
+import FetchAndSaveStock from './fetchAndSaveStock';
 
 describe('FetchAndSaveStock', () => {
   let fetchAndSaveStock;
