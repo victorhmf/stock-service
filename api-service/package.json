@@ -5,9 +5,13 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./infrastructure/webserver/index.js --legacy-watch",
-    "unit": "jest --runInBand",
-    "unit:cov": "jest --runInBand --collect-coverage",
-    "lint": "npx eslint"
+    "lint": "eslint",
+    "test:unit": "jest --runInBand ./src",
+    "test:unit:cov": "jest --runInBand --collect-coverage",
+    "test:integration": "env $(cat .env.test | xargs) jest ./tests/integration",
+    "db:migrate": "prisma migrate dev",
+    "db:test:create": "node ./scripts/createTestDatabase.js",
+    "db:test:migrate": "env $(cat .env.test | xargs) prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "^5.14.0",
@@ -27,7 +31,8 @@
     "jest": "^29.7.0",
     "nodemon": "^3.1.0",
     "pino-pretty": "^11.0.0",
-    "prisma": "^5.14.0"
+    "prisma": "^5.14.0",
+    "supertest": "^7.0.0"
   },
   "prisma": {
     "schema": "./infrastructure/database/prisma/schema.prisma"

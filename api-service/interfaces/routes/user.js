@@ -4,7 +4,7 @@ import { makeLoginController } from '../controllers/factories/loginControllerFac
 
 const router = express.Router();
 
-router.post('/login', (req, res, next) => makeLoginController().login(req, res, next));
 router.post('/register', (req, res, next) => makeUserController().create(req, res, next));
+router.post('/login', (req, res, next) => makeLoginController().login(req, res, next));
 
 export default router;
