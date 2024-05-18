@@ -1,9 +1,9 @@
 import request from 'supertest';
-import app from '../../../infrastructure/webserver/app';
+import app from '../../../src/infrastructure/webserver/app';
 import cleanUpDatabase from '../../cleanUpDatabase';
 import { createUser } from '../../factories/user';
 
-jest.mock("../../../interfaces/logger")
+jest.mock("../../../src/interfaces/logger")
 
 describe('UserController', () => {
   let response;
@@ -53,25 +53,6 @@ describe('UserController', () => {
         it('should return status code 401', () => {
           expect(response.status).toBe(401);
           expect(response.body).toHaveProperty('message', 'Invalid credentials.');
-        });
-      });
-
-      describe('with any error', () => {
-        beforeAll(async () => {
-          const email = 'test@example.com'
-          const password = 'invalid-password'
-
-          response = await request(app)
-            .post('/login')
-            .send({
-              // email,
-              // password
-            })
-        });
-
-        it('should return status code 500', () => {
-          expect(response.status).toBe(500);
-          expect(response.body).toHaveProperty('name', 'InternalServerError');
         });
       });
     });

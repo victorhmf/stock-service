@@ -1,18 +1,18 @@
 import request from 'supertest';
-import app from '../../../infrastructure/webserver/app';
+import app from '../../../src/infrastructure/webserver/app';
 import cleanUpDatabase from '../../cleanUpDatabase';
 
-jest.mock("../../../interfaces/logger")
+jest.mock("../../../src/interfaces/logger")
 
 describe('UserController', () => {
+  let response;
+
   afterAll(async () => {
     await cleanUpDatabase()
   });
 
   describe('#create', () => {
     describe('when a user is created successfully', () => {
-      let response;
-
       beforeAll(async () => {
         response = await request(app)
           .post('/register')
@@ -33,8 +33,6 @@ describe('UserController', () => {
     });
 
     describe('when user creation fails', () => {
-      let response;
-
       beforeAll(async () => {
         response = await request(app)
           .post('/register')

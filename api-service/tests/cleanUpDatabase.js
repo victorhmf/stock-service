@@ -1,4 +1,4 @@
-import db from '../infrastructure/database/prisma/index'
+import db from '../src/infrastructure/database/prisma/index'
 
 const cleanUpDatabase = async () => {
   const tablenames = await db.$queryRaw`

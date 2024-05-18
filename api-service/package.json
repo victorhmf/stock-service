@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "nodemon ./infrastructure/webserver/index.js --legacy-watch",
+    "start": "nodemon ./src/infrastructure/webserver/index.js --legacy-watch",
     "lint": "eslint",
     "test:unit": "jest --runInBand ./src",
-    "test:unit:cov": "jest --runInBand --collect-coverage",
+    "test:unit:cov": "jest --runInBand --collect-coverage ./src",
     "test:integration": "env $(cat .env.test | xargs) jest ./tests/integration",
     "db:migrate": "prisma migrate dev",
     "db:test:create": "node ./scripts/createTestDatabase.js",

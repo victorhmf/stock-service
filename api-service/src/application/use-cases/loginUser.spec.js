@@ -58,6 +58,14 @@ describe('LoginUser', () => {
     });
 
     describe('on fail', () => {
+      describe('when password or email in null', () => {
+        it('should throw InvalidCredentialsError', async () => {
+          userRepository.findByEmail.mockResolvedValue(null);
+
+          await expect(loginUser.execute({ email: '', password: '' })).rejects.toThrow(InvalidCredentialsError);
+        });
+      });
+
       describe('when user is not found', () => {
         it('should throw InvalidCredentialsError', async () => {
           userRepository.findByEmail.mockResolvedValue(null);
