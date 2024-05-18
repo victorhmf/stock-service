@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "nodemon ./infrastructure/webserver/index.js --legacy-watch",
-    "unit": "jest --runInBand",
-    "unit:cov": "jest --runInBand --collect-coverage",
+    "start": "nodemon ./src/infrastructure/webserver/index.js --legacy-watch",
+    "test:unit": "jest --runInBand src/",
+    "test:unit:cov": "jest --runInBand --collect-coverage src/",
     "lint": "npx eslint"
   },
   "dependencies": {
