@@ -3,8 +3,6 @@ import app from '../../../src/infrastructure/webserver/app';
 import cleanUpDatabase from '../../cleanUpDatabase';
 import { createUser } from '../../factories/user';
 
-jest.mock("../../../src/interfaces/logger")
-
 describe('UserController', () => {
   let response;
 

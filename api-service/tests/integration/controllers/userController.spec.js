@@ -2,8 +2,6 @@ import request from 'supertest';
 import app from '../../../src/infrastructure/webserver/app';
 import cleanUpDatabase from '../../cleanUpDatabase';
 
-jest.mock("../../../src/interfaces/logger")
-
 describe('UserController', () => {
   let response;
 

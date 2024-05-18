@@ -8,7 +8,7 @@
     "lint": "eslint",
     "test:unit": "jest --runInBand ./src",
     "test:unit:cov": "jest --runInBand --collect-coverage ./src",
-    "test:integration": "env $(cat .env.test | xargs) jest ./tests/integration",
+    "test:integration": "env $(cat .env.test | xargs) jest --runInBand ./tests/integration",
     "db:migrate": "prisma migrate dev",
     "db:test:create": "node ./scripts/createTestDatabase.js",
     "db:test:migrate": "env $(cat .env.test | xargs) prisma migrate dev"
@@ -35,6 +35,6 @@
     "supertest": "^7.0.0"
   },
   "prisma": {
-    "schema": "./infrastructure/database/prisma/schema.prisma"
+    "schema": "./src/infrastructure/database/prisma/schema.prisma"
   }
 }
