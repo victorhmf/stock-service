@@ -1,4 +1,7 @@
 import UserController from './userController';
+import createUserDTO from '../../application/dtos/createUserDto';
+
+jest.mock('../../application/dtos/createUserDto');
 
 describe('UserController', () => {
   let userController;
@@ -39,12 +42,17 @@ describe('UserController', () => {
     });
 
     it('should return the created user in JSON response', async () => {
+      const email = 'test@example.com'
       const createdUser = { id: 'user123', email: 'test@example.com', role: 'user' };
       createUserUseCase.execute.mockResolvedValueOnce(createdUser);
+      
+      
+      const mockParsedUser = { email, password: '123' };
+      createUserDTO.mockImplementation(() => mockParsedUser);
 
       await userController.create(req, res, next);
 
-      expect(res.json).toHaveBeenCalledWith(createdUser);
+      expect(res.json).toHaveBeenCalledWith(mockParsedUser);
     });
 
     it('should call next with error if createUserUseCase execute throws an error', async () => {

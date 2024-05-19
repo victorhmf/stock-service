@@ -1,3 +1,5 @@
+import GetStockHistoryDTO from "../../application/dtos/getStockHistoryDto.js"
+
 class StockController {
   constructor({ fetchAndSaveStockUseCase, getStockHistoryUseCase, getStockStatsUseCase }) {
     this.fetchAndSaveStockUseCase = fetchAndSaveStockUseCase
@@ -20,10 +22,10 @@ class StockController {
   async getStockHistory(req, res, next) {
     try {
       const { id: userId } = req.user
-      const result = await this.getStockHistoryUseCase.execute(userId)
+      const history = await this.getStockHistoryUseCase.execute(userId)
+      const parsedHistory = history.map(item => new GetStockHistoryDTO(item))
 
-      return res.json(result);
-
+      return res.json(parsedHistory);
     } catch (error) {
       next(error)
     }

@@ -3,7 +3,7 @@ import GetStockHistoryDTO from './getStockHistoryDto';
 describe('GetStockHistoryDTO', () => {
   describe('constructor', () => {
     it('should set properties correctly', () => {
-      const createdAt = new Date();
+      const createdAt = String(new Date());
       const name = 'AAPL';
       const symbol = 'AAPL';
       const open = 100.00;

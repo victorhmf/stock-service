@@ -75,7 +75,7 @@ describe('StockController', () => {
     });
 
     it('should return the result in JSON response', async () => {
-      const result = {};
+      const result = [];
       getStockHistoryUseCase.execute.mockResolvedValueOnce(result);
 
       await stockController.getStockHistory(req, res, next);

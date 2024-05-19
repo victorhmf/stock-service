@@ -1,11 +1,9 @@
 
 import CreateUser from './createUser';
 import User from '../../domain/entities/user';
-import createUserDTO from '../dtos/createUserDto';
 import EmailValidator from '../validators/emailValidator';
 
 jest.mock('../../domain/entities/user');
-jest.mock('../dtos/createUserDto');
 jest.mock('../validators/emailValidator');
 
 describe('CreateUser', () => {
@@ -40,14 +38,12 @@ describe('CreateUser', () => {
     };
     const mockPassword = 'password123';
     const mockUserInstance = { ...userData, password: mockPassword };
-    const mockParsedUser = { email: userData.email, role: userData.role };
 
     describe('on success', () => {
       beforeEach(() => {
         passwordGeneratorService.generate.mockReturnValue(mockPassword);
         User.mockImplementation(() => mockUserInstance);
         userRepository.create.mockResolvedValue(mockUserInstance);
-        createUserDTO.mockImplementation(() => mockParsedUser);
       });
 
       it('should validate the email', async () => {
@@ -73,12 +69,6 @@ describe('CreateUser', () => {
       it('should save the user in the repository', async () => {
         await createUser.execute(userData);
         expect(userRepository.create).toHaveBeenCalledWith(mockUserInstance);
-      });
-
-      it('should return a createUserDTO instance', async () => {
-        const result = await createUser.execute(userData);
-        expect(createUserDTO).toHaveBeenCalledWith(mockUserInstance);
-        expect(result).toEqual(mockParsedUser);
       });
     });
 

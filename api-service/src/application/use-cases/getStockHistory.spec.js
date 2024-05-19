@@ -1,7 +1,4 @@
 import GetStockHistory from './getStockHistory';
-import GetStockHistoryDTO from '../dtos/getStockHistoryDto';
-
-jest.mock('../dtos/getStockHistoryDto');
 
 describe('GetStockHistory', () => {
   let getStockHistory;
@@ -24,15 +21,10 @@ describe('GetStockHistory', () => {
       { id: 1, symbol: 'AAPL', createdAt: new Date('2024-05-01') },
       { id: 2, symbol: 'GOOGL', createdAt: new Date('2024-05-02') },
     ];
-    const parsedStockHistory = [
-      { symbol: 'AAPL', createdAt: new Date('2024-05-01') },
-      { symbol: 'GOOGL', createdAt: new Date('2024-05-02') },
-    ];
 
     describe('on success', () => {
       beforeEach(() => {
         stockRepository.findMany.mockResolvedValue(stockHistory);
-        GetStockHistoryDTO.mockImplementation((item) => ({ symbol: item.symbol, createdAt: item.createdAt }));
       });
 
       it('should fetch stock history from the repository', async () => {
@@ -40,16 +32,9 @@ describe('GetStockHistory', () => {
         expect(stockRepository.findMany).toHaveBeenCalledWith({ userId, orderBy: { createdAt: 'desc' } });
       });
 
-      it('should parse the fetched stock history using DTO', async () => {
-        await getStockHistory.execute(userId);
-        expect(GetStockHistoryDTO).toHaveBeenCalledTimes(2);
-        expect(GetStockHistoryDTO).toHaveBeenCalledWith(stockHistory[0]);
-        expect(GetStockHistoryDTO).toHaveBeenCalledWith(stockHistory[1]);
-      });
-
-      it('should return the parsed stock history', async () => {
+      it('should return stock history', async () => {
         const result = await getStockHistory.execute(userId);
-        expect(result).toEqual(parsedStockHistory);
+        expect(result).toEqual(stockHistory);
       });
     });
 

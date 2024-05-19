@@ -10,7 +10,7 @@ describe('UserController', () => {
   });
 
   describe('#create', () => {
-    describe('when a user is created successfully', () => {
+    describe('on success', () => {
       beforeAll(async () => {
         response = await request(app)
           .post('/register')
@@ -30,7 +30,7 @@ describe('UserController', () => {
       });
     });
 
-    describe('when user creation fails', () => {
+    describe('on fail', () => {
       beforeAll(async () => {
         response = await request(app)
           .post('/register')
