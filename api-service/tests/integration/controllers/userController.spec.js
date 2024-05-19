@@ -72,7 +72,7 @@ describe('UserController', () => {
         await createUser({ email, role })
 
         response = await request(app)
-          .post('/resetPassword')
+          .put('/resetPassword')
           .send({
             email: 'test@example.com',
           })
@@ -91,7 +91,7 @@ describe('UserController', () => {
       describe('when user does not exists', () => {
         beforeAll(async () => {
           response = await request(app)
-            .post('/resetPassword')
+            .put('/resetPassword')
             .send({
               email: 'testx@example.com',
             })

@@ -120,6 +120,7 @@ describe('StockController', () => {
           const stock1 = await createStock(mockStockData)
           const stock2 = await createStock(mockStockData)
           expectedData = [stock2, stock1].map(item => new GetStockHistoryDTO(item))
+          expectedData = JSON.parse(JSON.stringify(expectedData))
 
           jest.spyOn(authMiddleware, 'authenticate').mockImplementation((req, res, next) => {
             req.user = { id: user.id };

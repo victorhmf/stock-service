@@ -14,7 +14,7 @@ describe('TokenGeneratorService', () => {
       const tokenGeneratorService = new TokenGeneratorService();
       const generatedToken = await tokenGeneratorService.generate(data);
 
-      expect(jwt.sign).toHaveBeenCalledWith(data, process.env.SECRET_KEY, { expiresIn: '10m' });
+      expect(jwt.sign).toHaveBeenCalledWith(data, process.env.SECRET_KEY, { expiresIn: '60m' });
       expect(generatedToken).toEqual(accessToken);
     });
 

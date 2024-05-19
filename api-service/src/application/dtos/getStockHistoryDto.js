@@ -2,7 +2,7 @@ class GetStockHistoryDTO {
   constructor({
     createdAt, name, symbol, open, high, low, close
   }) {
-    this.date = String(createdAt)
+    this.date = createdAt
     this.name = name
     this.symbol = symbol
     this.open = open

@@ -27,6 +27,7 @@
     "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-syntax-import-attributes": "^7.24.1",
     "@babel/preset-env": "^7.24.5",
     "@eslint/js": "^9.2.0",
     "babel-jest": "^29.7.0",
