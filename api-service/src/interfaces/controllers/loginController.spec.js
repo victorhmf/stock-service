@@ -1,5 +1,5 @@
 import LoginController from './loginController';
-import { InvalidCredentialsError } from '../../application/errors/InvalidCredentials';
+import { InvalidCredentialsError } from '../../application/errors/InvalidCredentialsError';
 
 describe('LoginController', () => {
   let loginController;

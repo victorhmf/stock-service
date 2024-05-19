@@ -5,6 +5,7 @@ jest.mock('../index', () => ({
   user: {
     create: jest.fn(),
     findUnique: jest.fn(),
+    update: jest.fn()
   },
 }));
 
@@ -31,6 +32,19 @@ describe('PrismaUserRepository', () => {
       await prismaUserRepository.findByEmail(email);
       expect(db.user.findUnique).toHaveBeenCalledWith({
         where: { email },
+      });
+    });
+  });
+
+  describe('updatePassword', () => {
+    it('should call db.user.update with the correct data', async () => {
+      const userId = 1
+      const newPassword = 'newPassword';
+
+      await prismaUserRepository.updatePassword({ userId, newPassword });
+      expect(db.user.update).toHaveBeenCalledWith({
+        where: { id: userId },
+        data: { password: newPassword },
       });
     });
   });

@@ -18,4 +18,10 @@ describe('UserRepository', () => {
       expect(() => userRepository.findByEmail('test@example.com')).toThrow('Not implemented');
     });
   });
+
+  describe('updatePassword', () => {
+    it('should throw an error when called', () => {
+      expect(() => userRepository.updatePassword('password')).toThrow('Not implemented');
+    });
+  });
 });

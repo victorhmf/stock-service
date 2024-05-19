@@ -6,6 +6,7 @@ jest.mock('../../application/dtos/createUserDto');
 describe('UserController', () => {
   let userController;
   let createUserUseCase;
+  let resetPasswordUseCase;
   let req;
   let res;
   let next;
@@ -14,7 +15,10 @@ describe('UserController', () => {
     createUserUseCase = {
       execute: jest.fn(),
     };
-    userController = new UserController(createUserUseCase);
+    resetPasswordUseCase = {
+      execute: jest.fn(),
+    };
+    userController = new UserController({ createUserUseCase, resetPasswordUseCase });
     req = {
       body: {
         email: 'test@example.com',
@@ -45,8 +49,8 @@ describe('UserController', () => {
       const email = 'test@example.com'
       const createdUser = { id: 'user123', email: 'test@example.com', role: 'user' };
       createUserUseCase.execute.mockResolvedValueOnce(createdUser);
-      
-      
+
+
       const mockParsedUser = { email, password: '123' };
       createUserDTO.mockImplementation(() => mockParsedUser);
 
@@ -60,6 +64,32 @@ describe('UserController', () => {
       createUserUseCase.execute.mockRejectedValueOnce(error);
 
       await userController.create(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+
+  describe('resetPassword', () => {
+    it('should call resetPasswordUseCase execute with email', async () => {
+      await userController.resetPassword(req, res, next);
+
+      expect(resetPasswordUseCase.execute).toHaveBeenCalledWith(req.body.email);
+    });
+
+    it('should return the correct message in JSON response', async () => {
+      resetPasswordUseCase.execute.mockResolvedValueOnce();
+
+      await userController.resetPassword(req, res, next);
+      const expectedMessage = { message: "You will receive an email with your new password." }
+
+      expect(res.json).toHaveBeenCalledWith(expectedMessage);
+    });
+
+    it('should call next with error if resetPasswordUseCase execute throws an error', async () => {
+      const error = new Error('Failed to reset passwod');
+      resetPasswordUseCase.execute.mockRejectedValueOnce(error);
+
+      await userController.resetPassword(req, res, next);
 
       expect(next).toHaveBeenCalledWith(error);
     });

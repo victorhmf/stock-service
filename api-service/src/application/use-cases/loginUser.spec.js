@@ -1,5 +1,5 @@
 import LoginUser from './loginUser';
-import { InvalidCredentialsError } from '../errors/InvalidCredentials.js';
+import { InvalidCredentialsError } from '../errors/InvalidCredentialsError.js';
 
 describe('LoginUser', () => {
   let loginUser;
