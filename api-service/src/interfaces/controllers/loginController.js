@@ -1,4 +1,4 @@
-import { InvalidCredentialsError } from "../../application/errors/InvalidCredentials.js";
+import { InvalidCredentialsError } from "../../application/errors/InvalidCredentialsError.js";
 
 class LoginController {
   constructor(loginUserUseCase) {

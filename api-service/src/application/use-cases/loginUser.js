@@ -1,4 +1,4 @@
-import { InvalidCredentialsError } from '../errors/InvalidCredentials.js';
+import { InvalidCredentialsError } from '../errors/InvalidCredentialsError.js';
 
 class LoginUser {
   constructor({ userRepository, tokenGeneratorService }) {

@@ -28,6 +28,13 @@ class PrismaUserRepository extends UserRepository {
 
     return user
   }
+
+  async updatePassword({ userId, newPassword }) {
+    return db.user.update({
+      where: { id: userId },
+      data: { password: newPassword },
+    });
+  }
 }
 
 export default PrismaUserRepository;

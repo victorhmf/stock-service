@@ -1,8 +1,9 @@
 import CreateUserDTO from "../../application/dtos/createUserDto.js";
 
 class UserController {
-  constructor(createUserUseCase) {
+  constructor({ createUserUseCase, resetPasswordUseCase }) {
     this.createUserUseCase = createUserUseCase;
+    this.resetPasswordUseCase = resetPasswordUseCase
   }
 
   async create(req, res, next) {
@@ -12,6 +13,17 @@ class UserController {
       const parsedUser = new CreateUserDTO(user)
 
       return res.json(parsedUser);
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async resetPassword(req, res, next) {
+    try {
+      const { email } = req.body
+      await this.resetPasswordUseCase.execute(email);
+
+      return res.json({ message: "You will receive an email with your new password." });
     } catch (error) {
       next(error)
     }
