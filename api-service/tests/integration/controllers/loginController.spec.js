@@ -1,16 +1,20 @@
 import request from 'supertest';
 import app from '../../../src/infrastructure/webserver/app';
-import cleanUpDatabase from '../../cleanUpDatabase';
+import { cleanUpDB, disconnectDB } from '../../testUtils';
 import { createUser } from '../../factories/user';
 
 describe('UserController', () => {
   let response;
 
   afterAll(async () => {
-    await cleanUpDatabase()
+    await disconnectDB()
   });
 
   describe('#login', () => {
+    afterAll(async () => {
+      await cleanUpDB()
+    });
+    
     describe('on success', () => {
       beforeAll(async () => {
         const email = 'test@example.com'

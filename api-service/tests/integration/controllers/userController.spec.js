@@ -1,15 +1,19 @@
 import request from 'supertest';
 import app from '../../../src/infrastructure/webserver/app';
-import cleanUpDatabase from '../../cleanUpDatabase';
+import { cleanUpDB, disconnectDB } from '../../testUtils';
 
 describe('UserController', () => {
   let response;
 
   afterAll(async () => {
-    await cleanUpDatabase()
+    await disconnectDB()
   });
 
   describe('#create', () => {
+    afterAll(async () => {
+      await cleanUpDB()
+    });
+    
     describe('on success', () => {
       beforeAll(async () => {
         response = await request(app)

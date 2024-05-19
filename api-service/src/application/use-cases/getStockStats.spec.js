@@ -1,7 +1,4 @@
 import GetStockStats from './getStockStats';
-import GetStockStatsDTO from '../dtos/getStockStatsDto';
-
-jest.mock('../dtos/getStockStatsDto');
 
 describe('GetStockStats', () => {
   let getStockStats;
@@ -23,12 +20,10 @@ describe('GetStockStats', () => {
       { symbol: 'AAPL', count: 5 },
       { symbol: 'GOOGL', count: 3 },
     ];
-    const parsedStats = stats.map(item => ({ ...item }));
 
     describe('on success', () => {
       beforeEach(() => {
         stockRepository.countRequestsBySymbol.mockResolvedValue(stats);
-        GetStockStatsDTO.mockImplementation(item => ({ ...item }));
       });
 
       it('should fetch stock stats from the repository', async () => {
@@ -36,17 +31,9 @@ describe('GetStockStats', () => {
         expect(stockRepository.countRequestsBySymbol).toHaveBeenCalled();
       });
 
-      it('should parse the fetched stats with GetStockStatsDTO', async () => {
-        await getStockStats.execute();
-        expect(GetStockStatsDTO).toHaveBeenCalledTimes(stats.length);
-        stats.forEach((item, index) => {
-          expect(GetStockStatsDTO).toHaveBeenNthCalledWith(index + 1, item);
-        });
-      });
-
       it('should return the parsed stock stats', async () => {
         const result = await getStockStats.execute();
-        expect(result).toEqual(parsedStats);
+        expect(result).toEqual(stats);
       });
     });
 

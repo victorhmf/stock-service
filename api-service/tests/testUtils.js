@@ -1,6 +1,6 @@
 import db from '../src/infrastructure/database/prisma/index'
 
-const cleanUpDatabase = async () => {
+export const cleanUpDB = async () => {
   const tablenames = await db.$queryRaw`
     SELECT tablename FROM pg_tables WHERE schemaname='public';
   `;
@@ -11,7 +11,9 @@ const cleanUpDatabase = async () => {
     }
   }
 
-  await db.$disconnect();
 };
 
-export default cleanUpDatabase
+export const disconnectDB = async () => {
+    await db.$disconnect();
+}
+

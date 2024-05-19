@@ -1,4 +1,9 @@
+import GetStockStatsDTO from '../../application/dtos/getStockStatsDto';
+import GetStockHistoryDTO from '../../application/dtos/getStockHistoryDto';
 import StockController from './stockController';
+
+jest.mock('../../application/dtos/getStockStatsDto');
+jest.mock('../../application/dtos/getStockHistoryDto');
 
 describe('StockController', () => {
   let stockController;
@@ -75,8 +80,9 @@ describe('StockController', () => {
     });
 
     it('should return the result in JSON response', async () => {
-      const result = [];
+      const result = [{date: '', name: '', symbol: ''}];
       getStockHistoryUseCase.execute.mockResolvedValueOnce(result);
+      GetStockHistoryDTO.mockImplementation(item => ({ ...item }));
 
       await stockController.getStockHistory(req, res, next);
 
@@ -101,8 +107,9 @@ describe('StockController', () => {
     });
 
     it('should return the result in JSON response', async () => {
-      const result = {};
+      const result = [{ symbol: 'test', times_requested: 2}];
       getStockStatsUseCase.execute.mockResolvedValueOnce(result);
+      GetStockStatsDTO.mockImplementation(item => ({ ...item }));
 
       await stockController.getStockStats(req, res, next);
 
