@@ -2,7 +2,7 @@ import User from "../../domain/entities/user.js";
 import EmailValidator from "../validators/emailValidator.js";
 
 class CreateUser {
-  constructor({userRepository, passwordGeneratorService}) {
+  constructor({ userRepository, passwordGeneratorService }) {
     this.userRepository = userRepository;
     this.passwordGeneratorService = passwordGeneratorService
   }
@@ -10,7 +10,7 @@ class CreateUser {
   async execute({ email, role }) {
     const emailValidator = new EmailValidator(this.userRepository)
     await emailValidator.validate(email)
-    
+
     const password = this.passwordGeneratorService.generate()
 
     const user = new User({

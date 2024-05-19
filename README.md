@@ -129,6 +129,9 @@ Upon completion of these steps, the services will be available at the following 
 - stock-service: `http://localhost:3002`
 - mail-service: `http://localhost:8025/`
 
+All API documentation is available at: [http://localhost:3001/docs](http://localhost:3001/docs)
+
+
 #### Testing
 
 ##### Unit tests
