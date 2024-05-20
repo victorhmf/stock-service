@@ -146,3 +146,16 @@ All API documentation is available at: [http://localhost:3001/docs](http://local
   - `docker exec -it api-service npm run db:test:migrate`
 
 - Once the test database is set up, run the integration tests with: `docker exec -it api-service npm run test:integration`
+
+## Video
+
+You can watch the demonstration video by following this [link](https://www.loom.com/share/4a3d93f345b1481fb42082b2212f29a2?sid=2838bc7e-cfcc-4fb3-9534-7758e251f0ad).
+
+## Improvements
+
+Below is a list of enhancements I consider important for the future of the project:
+
+- **Use TypeScript**: Enhance code maintainability and scalability.
+- **Add More Validations**: Implement additional validation for route parameters.
+- **Implement Message Brokering**: Utilize message brokering for asynchronous processes such as sending emails.
+
