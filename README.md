@@ -111,8 +111,51 @@ The following features are optional to implement, but if you do, you'll be ranke
 
 ## How to run the project
 
-* Install dependencies: `cd api-service; npm install` and `cd stock-service; npm install`
-* Start the api service: `node api-service`
-* Start the stock service: `node stock-service`
+#### Requirements
 
-**Important:** If your implementation requires different steps to start the services (like starting a rabbitMQ consumer), also different endpoints o payload data for the endpoints, document them in the Readme!
+Ensure you have `docker` and `docker-compose` installed on your machine to run the project smoothly.
+
+#### Setup
+
+1. Build the images using: `docker-compose build`
+2. Start the containers by running: `docker-compose up -d`
+3. Monitor the logs with: `docker-compose logs -f`
+4. Execute database migrations via: `docker exec -it api-service npm run db:migrate`
+5. To shut down the application, simply run: `docker-compose down`
+
+Upon completion of these steps, the services will be available at the following endpoints:
+
+- api-service: `http://localhost:3001`
+- stock-service: `http://localhost:3002`
+- mail-service: `http://localhost:8025/`
+
+All API documentation is available at: [http://localhost:3001/docs](http://localhost:3001/docs)
+
+
+#### Testing
+
+##### Unit tests
+
+- To run unit tests for api-service, use: `docker exec -it api-service npm run test:unit:cov`
+- For stock-service, execute: `docker exec -it stock-service npm run test:unit:cov`
+
+##### Integration tests
+
+- Before running integration tests, set up the test database by executing the following commands respectively:
+  - `docker exec -it api-service npm run db:test:create`
+  - `docker exec -it api-service npm run db:test:migrate`
+
+- Once the test database is set up, run the integration tests with: `docker exec -it api-service npm run test:integration`
+
+## Video
+
+You can watch the demonstration video by following this [link](https://www.loom.com/share/4a3d93f345b1481fb42082b2212f29a2?sid=2838bc7e-cfcc-4fb3-9534-7758e251f0ad).
+
+## Improvements
+
+Below is a list of enhancements I consider important for the future of the project:
+
+- **Use TypeScript**: Enhance code maintainability and scalability.
+- **Add More Validations**: Implement additional validation for route parameters.
+- **Implement Message Brokering**: Utilize message brokering for asynchronous processes such as sending emails.
+

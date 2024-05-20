@@ -1,0 +1,378 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API SERVICE",
+    "description": "Api service which asks for quote information"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Operations related to users"
+    },
+    {
+      "name": "Stocks",
+      "description": "Operations related to stocks"
+    }
+  ],
+  "paths": {
+    "/register": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Register a new user",
+        "description": "This endpoint will create a new user with the provided email and role.",
+        "responses": {
+          "200": {
+            "description": "The created user object",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "example": "user@example.com"
+                    },
+                    "password": {
+                      "type": "string",
+                      "example": "some password"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "role": {
+                    "type": "string",
+                    "example": "user"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login",
+        "description": "Authenticate a user with the provided email and password.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "accessToken": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVtYWlsQGV4YW1wbGUuY29tIiwiaWF0IjoxNTE2MjM5MDIyfQ.X3cMWeUy-BW6bYLufXO9xvQnmJ9b2s1-j-f4IglzQkE"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "password123"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/resetPassword": {
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Reset Password",
+        "description": "Reset the password for the user with the provided email.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You will receive an email with your new password."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stock": {
+      "get": {
+        "tags": [
+          "Stocks"
+        ],
+        "summary": "Get stock data",
+        "description": "This endpoint retrieves stock data for a specified user.",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Stock code to retrieve data for",
+            "required": true,
+            "example": "AAPL.US",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Stock data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "The name of the stock",
+                      "example": "APPLE"
+                    },
+                    "symbol": {
+                      "type": "string",
+                      "description": "The symbol of the stock",
+                      "example": "AAPL.US"
+                    },
+                    "open": {
+                      "type": "number",
+                      "description": "The opening price of the stock"
+                    },
+                    "high": {
+                      "type": "number",
+                      "description": "The highest price of the stock during the period"
+                    },
+                    "low": {
+                      "type": "number",
+                      "description": "The lowest price of the stock during the period"
+                    },
+                    "close": {
+                      "type": "number",
+                      "description": "The closing price of the stock"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/history": {
+      "get": {
+        "tags": [
+          "Stocks"
+        ],
+        "summary": "Get stock history",
+        "description": "This endpoint retrieves stock history data for a specified user.",
+        "responses": {
+          "200": {
+            "description": "Stock history data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "date": {
+                        "type": "string",
+                        "description": "The date of the query",
+                        "example": "2021-04-01T19:20:30Z"
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the stock",
+                        "example": "APPLE"
+                      },
+                      "symbol": {
+                        "type": "string",
+                        "description": "The symbol of the stock",
+                        "example": "AAPL.US"
+                      },
+                      "open": {
+                        "type": "number",
+                        "description": "The opening price of the stock"
+                      },
+                      "high": {
+                        "type": "number",
+                        "description": "The highest price of the stock during the period"
+                      },
+                      "low": {
+                        "type": "number",
+                        "description": "The lowest price of the stock during the period"
+                      },
+                      "close": {
+                        "type": "number",
+                        "description": "The closing price of the stock"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/stats": {
+      "get": {
+        "tags": [
+          "Stocks"
+        ],
+        "summary": "Get stock statistics",
+        "description": "This endpoint retrieves stock statistics data.",
+        "responses": {
+          "200": {
+            "description": "Stock statistics data retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "symbol": {
+                        "type": "string",
+                        "description": "The symbol of the stock",
+                        "example": "AAPL.US"
+                      },
+                      "times_requested": {
+                        "type": "number",
+                        "description": "The number of times the stock was requested"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

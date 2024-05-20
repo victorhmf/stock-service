@@ -1,0 +1,52 @@
+version: '3.6'
+
+services: 
+  api-service:
+    container_name: api-service
+    build:
+     context: ./api-service
+    volumes:
+      - ./api-service:/app
+      - ./api-service/node_modules:/app/node_modules
+    ports:
+      - "3001:3001"
+      - "5555:5555"
+    env_file:
+      - ./api-service/.env.development
+    command: sh -c "npm i && sleep 5 && npm run start"
+    depends_on:
+      - database
+      - mailhog
+
+  stock-service:
+    container_name: stock-service
+    build:
+     context: ./stock-service
+    volumes:
+      - ./stock-service:/app
+      - ./stock-service/node_modules:/app/node_modules
+    ports:
+      - "3002:3002"
+    env_file:
+      - ./stock-service/.env
+    command: sh -c "npm i && sleep 5 && npm run start"
+
+  database:
+    container_name: database
+    image: postgres:16-alpine
+    volumes:
+      - database.volumes:/var/lib/postgresql/data
+    env_file:
+      - ./config/dev-database.env
+    ports:
+      - "5432:5432"
+
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+  
+volumes:
+  database.volumes: {}
